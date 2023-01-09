@@ -19,7 +19,6 @@ def microswitch():
                 break
 
             else:
-                pass
                 print("Sample Holder NOT in Position")
 
         except:
@@ -27,5 +26,4 @@ def microswitch():
 
     MicroSwitch.close()
     InProcess.close()
-
 

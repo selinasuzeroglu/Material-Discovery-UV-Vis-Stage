@@ -13,11 +13,12 @@ def fire_signal():
             Micro_bytes = InProcessOutput.readline()
             decoded_bytes = float(Micro_bytes[0:len(Micro_bytes) - 2].decode("utf-8"))
             if decoded_bytes == float(0.0):
-                time.sleep(30)
-                fire_results()
+                print("Measurement finished")
+                # time.sleep(30)
+                # fire_results()
                 break
             else:
-                print("Waiting for Measurement to end")
+                print("Waiting for measurement to finish")
 
         except:
             print("Interrupt")

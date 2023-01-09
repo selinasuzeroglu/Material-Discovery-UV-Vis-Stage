@@ -1,17 +1,12 @@
-import time
-
 from zaber_motion import Units, Library
 from zaber_motion.ascii import Connection
-from Trigger_InProcess_Input import microswitch
-from Trigger_InProcess_Output import fire_signal
 
 
-def positioning(pos):
+def positioning_MTP(pos_1, pos_2):
     Library.enable_device_db_store()
 
     with Connection.open_serial_port("COM7") as connection:
         device_list = connection.detect_devices()
-        print("Found {} devices".format(len(device_list)))
 
         device1 = device_list[0]
         device2 = device_list[1]
@@ -43,22 +38,27 @@ def positioning(pos):
             def unpark(self):
                 self.axis.unpark()
 
-        def placing(axis_posn):
+        def placing(axes_posn):
             for i in range(0, 3):
-                if axis_posn.__eq__() is True:
-                    axis_posn.park()
-                    print("Sample is placed")
+                if all(axis.__eq__() is True for axis in axes_posn):
+                    for axis in axes_posn:
+                        axis.park()
+                        print("Sample is placed")
                 else:
-                    axis_posn.place_on_sample()
-                    axis_posn.park()
+                    for axis in axes_posn:
+                        axis.place_on_sample()
+                        axis.park()
 
-        def unparking(axis_posn):
-            axis_posn.unpark()
+        def unparking(axes_posn):
+            for axis in axes_posn:
+                axis.unpark
 
-        axis1_pos = Axis(axis_1, pos)
+        axis1_pos = Axis(axis_1, pos_1)
+        axis2_pos = Axis(axis_2, pos_2)
+        axes_pos = [axis1_pos, axis2_pos]
 
-        placing(axis1_pos)
-        unparking(axis1_pos)
+        placing(axes_pos)
+        unparking(axes_pos)
 
 
 def homing_MTP():
@@ -67,7 +67,6 @@ def homing_MTP():
     with Connection.open_serial_port("COM7") as connection:
         device_list = connection.detect_devices()
         print("Found {} devices".format(len(device_list)))
-
         device1 = device_list[0]
         device2 = device_list[1]
 
@@ -86,7 +85,3 @@ def homing_MTP():
         homing()
 
 
-time.sleep(2)
-microswitch()
-time.sleep(2)
-fire_signal()
