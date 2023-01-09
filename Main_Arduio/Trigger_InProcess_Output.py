@@ -21,7 +21,6 @@ def fire_signal():
 
         except:
             print("Interrupt")
-            break
 
     InProcessOutput.close()
 

@@ -24,7 +24,6 @@ def microswitch():
 
         except:
             print("Interrupt")
-            break
 
     MicroSwitch.close()
     InProcess.close()
