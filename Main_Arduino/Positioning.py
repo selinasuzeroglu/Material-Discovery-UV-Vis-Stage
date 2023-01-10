@@ -82,12 +82,16 @@ def homing_MTP():
 
 
 
-
-connection = Connection.open_serial_port("COM7")
-reply = connection.read()
-
-if reply.reply_flag == "RJ":
-    print("A command was rejected! Reason: {}".format(reply.data))
-
-if reply.warning_flag != "--":
-    print("Warning received! Flag: {}".format(reply.warning_flag))
+#
+# connection = Connection.open_serial_port("COM7")
+# device_list = connection.detect_devices()
+#
+# device1 = device_list[0]
+#
+# reply = device1.read()
+#
+# if reply.reply_flag == "RJ":
+#     print("A command was rejected! Reason: {}".format(reply.data))
+#
+# if reply.warning_flag != "--":
+#     print("Warning received! Flag: {}".format(reply.warning_flag))
