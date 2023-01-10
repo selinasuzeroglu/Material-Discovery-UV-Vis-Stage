@@ -1,5 +1,6 @@
 from zaber_motion import Units, Library
 from zaber_motion.ascii import Connection
+import time
 
 
 def positioning_MTP(pos_1, pos_2):
@@ -39,26 +40,39 @@ def positioning_MTP(pos_1, pos_2):
                 self.axis.unpark()
 
         def placing(axes_posn):
-            for i in range(0, 3):
+            for i in range(0, 2):
                 if all(axis.__eq__() is True for axis in axes_posn):
                     for axis in axes_posn:
-                        axis.park()
+                        #axis.park()
                         print("Sample is placed")
                 else:
                     for axis in axes_posn:
                         axis.place_on_sample()
-                        axis.park()
+                        #axis.park()
 
         def unparking(axes_posn):
             for axis in axes_posn:
                 axis.unpark
 
-        axis1_pos = Axis(axis_1, pos_1)
-        axis2_pos = Axis(axis_2, pos_2)
-        axes_pos = [axis1_pos, axis2_pos]
+        d = 32.5
+        axis1_pos1 = Axis(axis_1, pos_1)
+        axis2_pos1 = Axis(axis_2, pos_2)
+        axes_pos1 = [axis1_pos1, axis2_pos1]
+        axis1_pos2 = Axis(axis_1, pos_1)
+        axis2_pos2 = Axis(axis_2, pos_2 + d)
+        axes_pos2 = [axis1_pos2, axis2_pos2]
+        axis1_pos3 = Axis(axis_1, pos_1)
+        axis2_pos3 = Axis(axis_2, pos_2 + 2*d)
+        axes_pos3 = [axis1_pos3, axis2_pos3]
 
-        placing(axes_pos)
-        unparking(axes_pos)
+        placing(axes_pos1)
+        #unparking(axes_pos1)
+        time.sleep(5)
+        placing(axes_pos2)
+        #unparking(axes_pos2)
+        time.sleep(5)
+        placing(axes_pos3)
+        #unparking(axes_pos3)
 
 
 def homing_MTP():
@@ -83,5 +97,12 @@ def homing_MTP():
                     break  # has to go
 
         homing()
+
+
+homing_MTP()
+positioning_MTP(50, 50)
+homing_MTP()
+
+
 
 
