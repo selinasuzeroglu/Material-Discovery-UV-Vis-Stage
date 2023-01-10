@@ -88,3 +88,6 @@ reply = connection.read()
 
 if reply.reply_flag == "RJ":
     print("A command was rejected! Reason: {}".format(reply.data))
+
+if reply.warning_flag != "--":
+    print("Warning received! Flag: {}".format(reply.warning_flag))
