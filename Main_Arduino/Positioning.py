@@ -61,12 +61,6 @@ def homing_MTP():
         device_list = connection.detect_devices()
         print("Found {} devices".format(len(device_list)))
 
-        # device1 = device_list[0]
-        # device2 = device_list[1]
-        #
-        # axis_1 = device1.get_axis(1)  # get axis (1 out of 1) for device_1
-        # axis_2 = device2.get_axis(1)  # get axis (1 out of 1) for device_2
-
         def homing():
             for i in range(0, 3):
                 if connection.home_all(
