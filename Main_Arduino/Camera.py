@@ -129,6 +129,8 @@ class Camera:
         # Increment the image index
         self.image_index += 1
 
+
+
     def capture_multiple_images(self, image_count):
         """Captures an n number of images by repeatedly calling the capture_single_image function n times where n is the parameter image_count.
 
