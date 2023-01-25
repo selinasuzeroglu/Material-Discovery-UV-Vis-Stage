@@ -50,8 +50,8 @@ transform = transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
 # dataset = CustomImageDataset(csv_file, image_dir, transform)
 
 idx = 0
-img_dir = 'C:\\Users\\ssuz0008\\PycharmProjects\\UVVis_3.0\\Image_Recognition\\Sample'
-img_csv = pd.read_csv('C:\\Users\\ssuz0008\\PycharmProjects\\UVVis_3.0\\Image_Recognition\\file.csv')
+img_dir = '/Image_Recognition/Sample'
+img_csv = pd.read_csv('/Image_Recognition/file.csv')
 label = str(img_csv.iloc[idx, 0])
 img_path = os.path.join(img_dir, label)
 
@@ -94,6 +94,6 @@ normalize = transforms.Normalize(
   std=[img_r_std, img_g_std, img_b_std])
 
 
-print(img_b_std)
-h
+
+
 
