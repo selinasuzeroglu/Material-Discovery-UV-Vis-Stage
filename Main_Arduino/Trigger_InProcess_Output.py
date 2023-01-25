@@ -15,7 +15,7 @@ def fire_signal():
             if decoded_bytes == float(0.0):
                 print("Measurement finished")
                 # time.sleep(30)
-                # fire_results()
+                fire_results()
                 break
             else:
                 print("Waiting for measurement to finish")
