@@ -23,6 +23,7 @@ time.sleep(2)
 fire_signal()
 homing_MTP()
 
+
 # positioning_MTP(vertical, horizontal + sample_distance)
 # camera.capture_single_image(autofocus=True)
 # positioning_MTP(vertical, horizontal + 2*sample_distance)
