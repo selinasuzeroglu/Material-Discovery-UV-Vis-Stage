@@ -5,6 +5,7 @@ import os
 
 # User Input for Image Name
 sample_list = []
+sample_list = [item for item in input("Enter the list items : ").split()]
 
 image_index = 0
 index = 0

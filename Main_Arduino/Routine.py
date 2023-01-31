@@ -1,18 +1,13 @@
-import time
 
 from Positioning import positioning_MTP, homing_MTP
 from Trigger_InProcess_Input import microswitch
 from Trigger_InProcess_Output import fire_signal
-from Camera import *
 from single_snapshot import snapshot
 
 horizontal = 95
 vertical = 50
 sample_distance = 32.5
 nikon_distance = 467.5
-
-sample_list = [item for item in input("Enter the list items : ").split()]
-
 
 homing_MTP()
 positioning_MTP(vertical, horizontal)
