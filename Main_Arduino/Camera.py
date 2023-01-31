@@ -77,12 +77,11 @@ class Camera:
         makedirs(self.save_folder, exist_ok=True)
 
         # Build image name
-        image_name = self.collection_name + '_' + str(self.image_index) + self.image_type
+        # original: image_name = self.collection_name + '_' + str(self.image_index) + self.image_type
+        image_name = self.collection_name + self.image_type
 
-        # for i, image in enumerate(image_name):
-        #     path = f"C:\\Users\\ssuz0008\\PycharmProjects\\UVVis_2.0\\Nikon_Remote_Control_{i}.jpg" if path.exists(image) else image
-        # Command Camera
         system(f'\"{self.control_cmd_location}\" /filename {self.save_folder}{image_name} {command}')
+
 
     def run_script(self, script_name: str) -> None:
         """Runs the passed script within the script location.
