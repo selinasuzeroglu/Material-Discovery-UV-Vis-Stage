@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-
 def fire_results():
     cnxn_str = ("Driver={SQL Server};"
                 "Server=MU00195249\ZEISSSQL;"
@@ -39,6 +38,9 @@ def fire_results():
     wavelength_transmission = InProcessData('Transmission', wavelengths).get_data()
     wavelength_reflection = InProcessData('Reflection', wavelengths).get_data()
 
+    sample_list = []
+    image_index = 0
+
     def plotting():
         fig, (ax1, ax2) = plt.subplots(2)
 
@@ -51,14 +53,10 @@ def fire_results():
         custom_ylim = (0, 100)
         plt.setp((ax1, ax2), ylim=custom_ylim)
 
-        plt.savefig('my_plot')
-
-        plt.show()
+        global image_index
+        plt.savefig(f'my_plot_{sample_list[image_index]}')
+        image_index += 1
+        # plt.show()
 
     return plotting()
     cnxn.close()
-
-
-
-
-#fire_results()

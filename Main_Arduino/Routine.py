@@ -6,32 +6,29 @@ from Trigger_InProcess_Output import fire_signal
 from Camera import *
 from single_snapshot import snapshot
 
-horizontal = 50
+horizontal = 95
 vertical = 50
 sample_distance = 32.5
-nikon_distance = 500
+nikon_distance = 467.5
 
-
-# sample_list = []
-# sample_list = [item for item in input("Enter the list items : ").split()]
-# image_index = 0
+sample_list = [item for item in input("Enter the list items : ").split()]
 
 
 homing_MTP()
 positioning_MTP(vertical, horizontal)
 microswitch()
-# fire_signal()
-# positioning_MTP(vertical, horizontal + sample_distance)
-# microswitch()
-# fire_signal()
+fire_signal()
+positioning_MTP(vertical, horizontal + sample_distance)
+microswitch()
+fire_signal()
 # positioning_MTP(vertical, horizontal + 2*sample_distance)
 # microswitch()
 # fire_signal()
 positioning_MTP(vertical, nikon_distance)
-# snapshot()
-# positioning_MTP(vertical, nikon_distance + sample_distance)
-# snapshot()
+snapshot()
+positioning_MTP(vertical, nikon_distance + sample_distance)
+snapshot()
 # positioning_MTP(vertical, nikon_distance + 2*sample_distance)
 # snapshot()
-# homing_MTP()
-#
+homing_MTP()
+
