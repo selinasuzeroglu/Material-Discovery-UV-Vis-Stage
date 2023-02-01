@@ -8,7 +8,7 @@ sample_list = []
 sample_list = [item for item in input("Enter the list items : ").split()]
 
 image_index = 0
-index = 0
+#index = 0
 
 
 def snapshot():
@@ -24,11 +24,11 @@ def snapshot():
     def camera():
 
         global image_index
-        global index
+        #global index
 
-        path = f'{save_folder}{image_name}'
-        while os.path.exists(path):
-            index += 1
+        # path = f'{save_folder}{image_name}'
+        # while os.path.exists(path):
+        #     index += 1
 
         camera = Camera(control_cmd_location=camera_control_cmd_path,
                         image_type=image_type,
@@ -39,6 +39,8 @@ def snapshot():
         image_index += 1
 
     return camera()
+
+
 
 
 

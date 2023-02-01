@@ -6,24 +6,24 @@ from single_snapshot import snapshot
 
 horizontal = 95
 vertical = 50
-sample_distance = 32.5
-nikon_distance = 467.5
+sample_distance = 50
+nikon_distance = 450
 
-homing_MTP()
-positioning_MTP(vertical, horizontal)
-microswitch()
-fire_signal()
-positioning_MTP(vertical, horizontal + sample_distance)
-microswitch()
-fire_signal()
+# homing_MTP()
+# positioning_MTP(vertical, horizontal)
+# microswitch()
+# fire_signal()
+# positioning_MTP(vertical, horizontal + sample_distance)
+# microswitch()
+# fire_signal()
 # positioning_MTP(vertical, horizontal + 2*sample_distance)
 # microswitch()
 # fire_signal()
-positioning_MTP(vertical, nikon_distance)
-snapshot()
+# positioning_MTP(vertical, nikon_distance)
+# snapshot()
 positioning_MTP(vertical, nikon_distance + sample_distance)
 snapshot()
 # positioning_MTP(vertical, nikon_distance + 2*sample_distance)
 # snapshot()
-homing_MTP()
+#homing_MTP()
 
