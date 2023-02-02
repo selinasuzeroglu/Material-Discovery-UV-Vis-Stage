@@ -35,12 +35,8 @@ def snapshot():
                         collection_name=collection_name,
                         save_folder=save_folder)
 
-        camera.capture_single_image(autofocus=True)
+        camera.capture_single_image(autofocus=False)
         image_index += 1
 
     return camera()
-
-
-
-
 
