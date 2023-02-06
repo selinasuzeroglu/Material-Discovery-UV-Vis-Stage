@@ -25,4 +25,3 @@ def fire_signal():
 
     InProcessOutput.close()
 
-#fire_signal('InProcess Test', 'Transmission')

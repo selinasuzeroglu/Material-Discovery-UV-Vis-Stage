@@ -1,8 +1,9 @@
 import pyodbc
 import pandas as pd
 import matplotlib.pyplot as plt
+from single_snapshot import sample_list
 
-
+image_index = 0
 def fire_results():
     cnxn_str = ("Driver={SQL Server};"
                 "Server=MU00195249\ZEISSSQL;"
@@ -38,8 +39,8 @@ def fire_results():
     wavelength_transmission = InProcessData('Transmission', wavelengths).get_data()
     wavelength_reflection = InProcessData('Reflection', wavelengths).get_data()
 
-
     def plotting():
+
         fig, (ax1, ax2) = plt.subplots(2)
 
         ax1.plot(wavelength_transmission, transmission)
@@ -51,8 +52,14 @@ def fire_results():
         custom_ylim = (0, 100)
         plt.setp((ax1, ax2), ylim=custom_ylim)
 
-        plt.savefig('my_plot')
-        plt.show()
+        global image_index
+        collection_name = sample_list[image_index]
+        plt.savefig(collection_name)
+        plt.show(block=False)
+
+        image_index += 1
 
     return plotting()
     cnxn.close()
+
+
