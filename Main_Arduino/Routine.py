@@ -7,7 +7,7 @@ from single_snapshot import snapshot
 horizontal = 95
 vertical = 0
 sample_distance = 42
-nikon_distance = 458
+nikon_distance = 457
 
 # homing_MTP()
 positioning_MTP(vertical, horizontal)
