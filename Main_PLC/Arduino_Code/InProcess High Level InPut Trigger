@@ -1,0 +1,24 @@
+int InProcess = 7;  
+
+
+void setup()
+{
+  Serial.begin(9600); 
+  pinMode(InProcess, OUTPUT); 
+  digitalWrite (InProcess, LOW);
+}
+
+void loop()
+{
+ while (Serial.available())  
+ if ((Serial.read() == 0))
+  { 
+    digitalWrite (InProcess, HIGH);
+    delay(100);
+  }
+ else if ((Serial.read() == 1))
+  {
+    digitalWrite (InProcess, LOW);
+  }
+ digitalWrite(InProcess, LOW);
+}

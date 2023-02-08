@@ -1,0 +1,22 @@
+int InProcessOutput = 7;  
+ 
+
+void setup()
+{
+  Serial.begin(9600); 
+  pinMode(InProcessOutput, INPUT); 
+ 
+}
+
+void loop()
+{  
+  switch (digitalRead(InProcessOutput)) {
+    case LOW:
+       Serial.println(digitalRead(InProcessOutput));  
+      break;
+    case HIGH:
+      Serial.println(digitalRead(InProcessOutput));
+      break;
+  }
+  digitalWrite(InProcessOutput, HIGH); 
+}

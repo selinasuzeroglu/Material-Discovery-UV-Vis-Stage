@@ -1,0 +1,32 @@
+#include <Arduino_MachineControl.h>
+#include "Wire.h"
+
+using namespace machinecontrol;
+  uint16_t readings = 0;
+
+
+void setup() {
+  Serial.begin(9600);
+  //The loop starts only when the Serial Monitor is opened.
+  while(!Serial);
+  Wire.begin();
+
+  if (!digital_inputs.init()) {
+    Serial.println("Digital input GPIO expander initialization fail!!");
+ }
+}
+
+void loop() {
+
+  readings = digital_inputs.read(DIN_READ_CH_PIN_07);
+
+  switch (readings) {
+    case LOW:
+       digital_outputs.set(0, LOW);
+      break;
+    case HIGH:
+      digital_outputs.set(0, HIGH);
+      break;
+  }
+}
+
