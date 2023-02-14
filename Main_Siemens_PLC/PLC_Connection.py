@@ -17,7 +17,20 @@ def read_memory(plc, byte, bit, datatype):
         return None
 
 
-IP = '192.168.0.241'
+def write_memory(plc, byte, bit, datatype, value):
+    result = plc.read_area(areas['MK'], 0, byte, datatype)
+    if datatype == S7WLBit:
+        set_bool(result, 0, bit, value)
+    elif datatype == S7WLByte or datatype == S7WLWord:
+        set_int(result, 0, value)
+    elif datatype == S7WLReal:
+        set_real(result, 0, value)
+    elif datatype == S7WLDWord:
+        set_dword(result, 0, value)
+    plc.write_area(areas['MK'], 0, byte, result)
+
+
+IP = '192.168.0.1'
 RACK = 0
 SLOT = 1
 
