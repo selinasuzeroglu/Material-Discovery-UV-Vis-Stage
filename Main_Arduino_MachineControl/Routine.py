@@ -1,18 +1,18 @@
-#
-# from Positioning import positioning_MTP, homing_MTP
-# from Trigger_InProcess_Input import microswitch
-# from Trigger_InProcess_Output import fire_signal
-# from single_snapshot import snapshot
+
+from Positioning import positioning_MTP, homing_MTP
+from Trigger_InProcess_Input import microswitch
+from Trigger_InProcess_Output import fire_signal
+from single_snapshot import snapshot
 
 horizontal = 95
 vertical = 0
 sample_distance = 42
 nikon_distance = 457
 
-# homing_MTP()
-# positioning_MTP(vertical, horizontal)
+homing_MTP()
+positioning_MTP(vertical, horizontal)
 # microswitch()
-# fire_signal()
+fire_signal()
 # positioning_MTP(vertical, horizontal + sample_distance)
 # microswitch()
 # fire_signal()

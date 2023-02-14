@@ -1,6 +1,6 @@
 import serial
 import time
-#from SQL_Plot_Results import fire_results
+from SQL_Plot_Results import fire_results
 
 
 def fire_signal():
@@ -12,10 +12,10 @@ def fire_signal():
         try:
             Micro_bytes = InProcessOutput.readline()
             decoded_bytes = float(Micro_bytes[0:len(Micro_bytes) - 2].decode("utf-8"))
-            if decoded_bytes == float(1.0):
+            if decoded_bytes == float(0.0):
                 print("Measurement finished")
-                # time.sleep(30)
-                # fire_results()
+                time.sleep(30)
+                fire_results()
                 break
             else:
                 print("Waiting for measurement to finish")
