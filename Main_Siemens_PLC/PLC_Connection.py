@@ -4,7 +4,7 @@ from snap7.types import *
 
 
 def read_memory(plc, byte, bit, datatype):
-    result = plc.read_area(areas['MK'], 0, byte, datatype)
+    result = plc.read_area(snap7.types.Areas.MK, 0, byte, datatype)
     if datatype == S7WLBit:
         return get_bool(result, 0, 1)
     elif datatype == S7WLByte or datatype == S7WLWord:
@@ -18,7 +18,7 @@ def read_memory(plc, byte, bit, datatype):
 
 
 def write_memory(plc, byte, bit, datatype, value):
-    result = plc.read_area(areas['MK'], 0, byte, datatype)
+    result = plc.read_area(snap7.types.Areas.MK, 0, byte, datatype)
     if datatype == S7WLBit:
         set_bool(result, 0, bit, value)
     elif datatype == S7WLByte or datatype == S7WLWord:
@@ -36,6 +36,8 @@ SLOT = 1
 
 plc = snap7.client.Client()
 plc.connect(IP, RACK, SLOT)
+state = plc.get_cpu_state()
+print(f'State: {state}')
 
 while True:
     readbit = read_memory(plc, 0, 1, S7WLBit)
