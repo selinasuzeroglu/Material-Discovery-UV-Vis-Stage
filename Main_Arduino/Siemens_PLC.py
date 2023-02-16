@@ -1,7 +1,6 @@
 import snap7
-import serial
 import time
-from SQL_Plot_Results import fire_results
+#from SQL_Plot_Results import fire_results
 
 
 
@@ -42,17 +41,28 @@ Set boolean value on location in bytearray.
 Value: 1=true, 0=false
  """
 
-def read_bool(db_number, start_offset, bit_offset):
-    reading = plc.db_read(db_number, start_offset, 1)
-    bool = snap7.util.get_bool(reading, 0, bit_offset)
-    return bool
+
+class MemorySpace:
+    def __init__(self, db_number, start_offset, bit_offset):
+        self.db_number = db_number
+        self.start_offset = start_offset
+        self.bit_offset = bit_offset
+
+    def read_bool(self):
+        reading = plc.db_read(self.db_number, self.start_offset, 1)
+        bool = snap7.util.get_bool(reading, 0, self.bit_offset)
+        return bool
+
+    def write_bool(self, value):
+        reading = plc.db_read(self.db_number, self.start_offset, 1)
+        snap7.util.set_bool(reading, 0, self.bit_offset, value)
+        plc.db_write(self.db_number, self.start_offset, reading)
+        return None
 
 
-def write_bool(db_number, start_offset, bit_offset, value):
-    reading = plc.db_read(db_number, start_offset, 1)
-    snap7.util.set_bool(reading, 0, bit_offset, value)
-    plc.db_write(db_number, start_offset, reading)
-    return None
+Microswitch = MemorySpace(1, 0, 0)
+ZeissTriggerIN = MemorySpace(1, 0, 1)
+ZeissTriggerOUT = MemorySpace(1, 0, 2)
 
 
 
@@ -65,19 +75,19 @@ def microswitch():
     plc.connect(IP, RACK, SLOT)
     while True:
         try:
-            db_number = 1
-            start_offset = 0
-            bit_offset = 0  # Microswitch
-            if read_bool(db_number, start_offset, bit_offset):
-                bit_offset = 1  # Zeiss_Input
-                value = 1
-                write_bool(db_number, start_offset, bit_offset, value)
+            if Microswitch.read_bool():
+                ZeissTriggerIN.write_bool(1)
                 print("Sample Holder in Position")
+                time.sleep(2)
+                ZeissTriggerIN.write_bool(0)
                 break
             else:
+                ZeissTriggerIN.write_bool(0)
                 print("Sample Holder NOT in Position")
         except:
             print("Interrupt")
+
+
 
 
 def fire_signal():
@@ -89,14 +99,12 @@ def fire_signal():
     plc.connect(IP, RACK, SLOT)
     while True:
         try:
-            db_number = 1
-            start_offset = 0
-            bit_offset = 2  # Zeiss_Output
-            if read_bool(db_number, start_offset, bit_offset):
+            if ZeissTriggerOUT.read_bool():
                 print("Measurement finished")
-                time.sleep(30)
-                fire_results()
+                # time.sleep(30)
+                # fire_results()
                 break
         except:
             print("Interrupt")
 
+microswitch()
