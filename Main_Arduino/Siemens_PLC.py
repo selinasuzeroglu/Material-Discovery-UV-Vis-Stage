@@ -102,7 +102,10 @@ def fire_signal():
                 # time.sleep(30)
                 # fire_results()
                 break
+            else:
+                print("Waiting for measurement to finish")
         except:
             print("Interrupt")
 
+fire_signal()
 microswitch()
