@@ -70,7 +70,6 @@ def microswitch():
     IP = '192.168.0.1'
     RACK = 0
     SLOT = 1
-
     plc = snap7.client.Client()
     plc.connect(IP, RACK, SLOT)
     while True:
@@ -94,7 +93,6 @@ def fire_signal():
     IP = '192.168.0.1'
     RACK = 0
     SLOT = 1
-
     plc = snap7.client.Client()
     plc.connect(IP, RACK, SLOT)
     while True:
