@@ -1,5 +1,5 @@
 from Positioning import positioning_MTP, homing_MTP
-from Siemens_PLC import fire_signal, microswitch
+from Siemens_PLC import fire_signal, microswitch, MemorySpace
 from single_snapshot import snapshot
 
 horizontal = 95
