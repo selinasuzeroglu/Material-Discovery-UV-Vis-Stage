@@ -106,3 +106,4 @@ def fire_signal():
 
 
 ZeissTriggerIN.write_bool(0)
+
