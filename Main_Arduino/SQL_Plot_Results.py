@@ -1,7 +1,7 @@
 import pyodbc
 import pandas as pd
 import matplotlib.pyplot as plt
-from single_snapshot import sample_list
+from Snapshot import sample_list
 
 image_index = 0
 def fire_results():

@@ -107,5 +107,5 @@ def fire_signal():
         except:
             print("Interrupt")
 
-fire_signal()
-microswitch()
+
+ZeissTriggerIN.write_bool(0)

@@ -1,8 +1,8 @@
 
-from Positioning import positioning_MTP, homing_MTP
+from Positioning import positioning_MTP
 from Trigger_InProcess_Input import microswitch
 from Trigger_InProcess_Output import fire_signal
-from single_snapshot import snapshot
+from Snapshot import snapshot
 
 horizontal = 95
 vertical = 0
