@@ -1,7 +1,6 @@
 import snap7
 import time
-
-# from SQL_Plot_Results import fire_results
+from SQL_Plot_Results import fire_results
 
 
 IP = '192.168.0.1'
@@ -96,14 +95,11 @@ def fire_signal():
         try:
             if ZeissTriggerOUT.read_bool():
                 print("Measurement finished")
-                # time.sleep(30)
-                # fire_results()
+                time.sleep(30)
+                fire_results()
                 break
             else:
                 print("Waiting for measurement to finish")
         except:
             print("Interrupt")
-
-
-ZeissTriggerIN.write_bool(0)
 
