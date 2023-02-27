@@ -71,18 +71,26 @@ def microswitch():
     plc = snap7.client.Client()
     plc.connect(IP, RACK, SLOT)
     while True:
-        try:
-            if Microswitch.read_bool():
-                ZeissTriggerIN.write_bool(1)
-                print("Sample Holder in Position")
-                time.sleep(2)
-                ZeissTriggerIN.write_bool(0)
-                break
-            else:
-                ZeissTriggerIN.write_bool(0)
-                print("Sample Holder NOT in Position")
-        except:
-            print("Interrupt")
+        if not plc.get_connected():
+            try:
+                plc.connect(IP, RACK, SLOT)
+                print('not connected')
+                time.sleep(0.2)
+            except:
+                continue
+        else:
+            try:
+                if Microswitch.read_bool():
+                    ZeissTriggerIN.write_bool(1)
+                    print("Sample Holder in Position")
+                    time.sleep(2)
+                    ZeissTriggerIN.write_bool(0)
+                    break
+                else:
+                    ZeissTriggerIN.write_bool(0)
+                    print("Sample Holder NOT in Position")
+            except:
+                continue
 
 
 def fire_signal():
@@ -92,14 +100,44 @@ def fire_signal():
     plc = snap7.client.Client()
     plc.connect(IP, RACK, SLOT)
     while True:
-        try:
-            if ZeissTriggerOUT.read_bool():
-                print("Measurement finished")
-                time.sleep(30)
-                fire_results()
-                break
-            else:
-                print("Waiting for measurement to finish")
-        except:
-            print("Interrupt")
+        if not plc.get_connected():
+            try:
+                plc.connect(IP, RACK, SLOT)
+                print('not connected')
+                time.sleep(0.2)
+            except:
+                continue
+        else:
+            try:
+                if ZeissTriggerOUT.read_bool():
+                    print("Measurement finished")
+                    time.sleep(30)
+                    fire_results()
+                    break
+                else:
+                    print("Waiting for measurement to finish")
+            except:
+                continue
+
+
+def switch():
+    IP = '192.168.0.1'
+    RACK = 0
+    SLOT = 1
+    plc = snap7.client.Client()
+    plc.connect(IP, RACK, SLOT)
+    while True:
+        if not plc.get_connected():
+            try:
+                plc.connect(IP, RACK, SLOT)
+                print('not connected')
+                time.sleep(0.2)
+            except:
+                continue
+        else:
+            ZeissTriggerIN.write_bool(1)
+            print("Sample Holder in Position")
+            time.sleep(2)
+            ZeissTriggerIN.write_bool(0)
+            break
 
