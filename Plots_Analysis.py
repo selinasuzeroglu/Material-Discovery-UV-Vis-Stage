@@ -40,7 +40,7 @@ class InProcessData:
 
 transmission = InProcessData('Transmission', values).get_data()
 reflection = InProcessData('Reflection', values).get_data()
-absorbance = InProcessData('Absorbance', values).get_data()
+absorbance = InProcessData('Spectrum', values).get_data()
 wavelength_transmission = InProcessData('Transmission', wavelengths).get_data()
 wavelength_reflection = InProcessData('Reflection', wavelengths).get_data()
 
@@ -73,30 +73,30 @@ def get_ordinate(E, a, r):  # E = Energy, a = Absorption Coefficient, r = power 
 
 
 Energy = get_energy(wavelength_reflection)
-# Absorbance = get_absorbance()
 AbsorptionCoefficient = get_alpha()
 
 r_direct = 1/2
 r_indirect = 2
 
+
 tauc_spectrum = np.zeros((len(reflection), 2))
 tauc_spectrum[:, 0] = Energy  # hv on x-axis
 tauc_spectrum[:, 1] = get_ordinate(Energy, AbsorptionCoefficient, r_indirect)  # (hv*a)**(1/r) on y-axis
-
-plt.plot(tauc_spectrum[:,0], tauc_spectrum[:,1])
-plt.show()
 
 
 # Calculation:
 
 # Transform Tauc plot to interpolation function
 y = interp1d(tauc_spectrum[:, 0], savgol_filter(tauc_spectrum[:, 1], 51, 3))
-x = np.linspace(tauc_spectrum[0, 0], tauc_spectrum[-1:, 0], 5000)
+x = np.linspace(tauc_spectrum[0, 0], tauc_spectrum[-1:, 0], 5000).squeeze()
+
 
 # Calculate 1st derivative along Tauc plot
 dy = np.diff(y(x), 1)
 dx = np.diff(x, 1)
+
 y_1d = interp1d(x[:-1], dy / dx)
+
 
 # Calculate 2nd derivative along Tauc plot
 d2y = np.diff(y(x), 2)
@@ -121,3 +121,15 @@ c = y_0 - m * x_0
 # Calculate optical gap from extrapolation line
 x_cross = (0 - c) / m
 gap = x_cross
+
+# Plot Tauc plot, extrapolation line and point equal to optical gap
+plt.xlabel(r'$ h \nu$ (eV)')
+plt.ylabel(r'$( \alpha h \nu )^{1/r}$ $(cm^{-1})$')
+plt.figtext(0.15, 0.8, 'Optical Gap = ' + str(x_cross)[:4] + ' eV')
+
+plt.plot(tauc_spectrum[:, 0], tauc_spectrum[:, 1], '-',
+         [(0 - c) / m, (0.7 * np.amax(tauc_spectrum[:, 1]) - c) / m], [0, 0.7 * np.amax(tauc_spectrum[:, 1])], '--',
+         tauc_spectrum[:, 0], np.zeros(len(tauc_spectrum)), '-',
+         x_cross, 0, 'o', )
+
+plt.show()
