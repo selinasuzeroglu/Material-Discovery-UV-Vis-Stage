@@ -124,6 +124,7 @@ def fire_signal():
                 continue
 
 
+
 def switch():
     IP = '192.168.0.1'
     RACK = 0
