@@ -17,8 +17,8 @@ for i in range(0, 101):
     positioning_MTP(vertical, horizontal + sample_distance)
     switch()
     fire_signal()
-    positioning_MTP(vertical, nikon_distance)
-    snapshot()
-    positioning_MTP(vertical, nikon_distance + sample_distance)
-    snapshot()
+    # positioning_MTP(vertical, nikon_distance)
+    # snapshot()
+    # positioning_MTP(vertical, nikon_distance + sample_distance)
+    # snapshot()
 

@@ -85,6 +85,8 @@ def microswitch():
                     print("Sample Holder in Position")
                     time.sleep(2)
                     ZeissTriggerIN.write_bool(0)
+                    plc.disconnect()
+                    plc.destroy()
                     break
                 else:
                     ZeissTriggerIN.write_bool(0)
@@ -113,6 +115,8 @@ def fire_signal():
                     print("Measurement finished")
                     time.sleep(30)
                     fire_results()
+                    plc.disconnect()
+                    plc.destroy()
                     break
                 else:
                     print("Waiting for measurement to finish")
@@ -139,5 +143,7 @@ def switch():
             print("Sample Holder in Position")
             time.sleep(2)
             ZeissTriggerIN.write_bool(0)
+            plc.disconnect()
+            plc.destroy()
             break
 
