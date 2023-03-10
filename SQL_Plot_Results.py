@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from Snapshot import sample_list
 
 image_index = 0
+
+
 def fire_results():
     cnxn_str = ("Driver={SQL Server};"
                 "Server=MU00195249\ZEISSSQL;"

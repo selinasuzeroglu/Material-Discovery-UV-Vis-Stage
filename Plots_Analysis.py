@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 from scipy.signal import savgol_filter
 
+from SQL_get_data import InProcessData
+
 
 cnxn_str = ("Driver={SQL Server};"
             "Server=MU00195249\ZEISSSQL;"
@@ -21,21 +23,7 @@ data = pd.read_sql(spectrum, cnxn)
 result_name = data.ResultName.str.split(";", expand=True, )
 wavelengths = data.Wavelengths.str.split(";", expand=True, )
 values = data.Values.str.split(";", expand=True, )
-
-
-class InProcessData:
-
-    def __init__(self, result, column):
-        self.column = column
-        self.result = result
-
-    def get_data(self):
-        transposed_data = self.column.transpose()
-        result_name.rename(columns={0: 'ResultName'}, inplace=True)
-        result_index = result_name[result_name['ResultName'] == self.result].index.values
-        recent_data_index = max(result_index)
-        transposed_data = transposed_data.iloc[:, recent_data_index]
-        return transposed_data.to_numpy().astype(float)
+timestamp = data.Timestamp
 
 
 transmission = InProcessData('Transmission', values).get_data()
@@ -43,6 +31,10 @@ reflection = InProcessData('Reflection', values).get_data()
 absorbance = InProcessData('Spectrum', values).get_data()
 wavelength_transmission = InProcessData('Transmission', wavelengths).get_data()
 wavelength_reflection = InProcessData('Reflection', wavelengths).get_data()
+
+
+# Data from run on 09/03/2023:
+
 
 
 def get_energy(λ):  # λ = Wavelengths
