@@ -38,7 +38,7 @@ class InProcessData:
         data_index = list(set(timestamp_index).intersection(result_index))
         transposed_data = self.column.transpose()
         desired_data = transposed_data.iloc[:, data_index]
-        return desired_data.to_numpy().astype(float)
+        return desired_data.to_numpy().astype(float).flatten()
 
     def get_recent_data(self):
         transposed_data = self.column.transpose()
