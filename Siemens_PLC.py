@@ -1,6 +1,8 @@
 import snap7
 import time
-from SQL_Plot_Results import fire_results
+import struct
+
+# from SQL_Plot_Results import fire_results
 
 
 IP = '192.168.0.1'
@@ -58,10 +60,16 @@ class MemorySpace:
         plc.db_write(self.db_number, self.start_offset, reading)
         return None
 
+    def read_real(self):
+        reading = plc.db_read(self.db_number, self.start_offset, 4)
+        real = snap7.util.get_real(reading, 0)
+        while True:
+            print(real)
 
-Microswitch = MemorySpace(1, 0, 0)
-ZeissTriggerIN = MemorySpace(1, 0, 1)
-ZeissTriggerOUT = MemorySpace(1, 0, 2)
+
+Microswitch = MemorySpace(1, 4, 0)
+ZeissTriggerIN = MemorySpace(1, 4, 1)
+ZeissTriggerOUT = MemorySpace(1, 4, 2)
 
 
 def microswitch():
@@ -113,8 +121,8 @@ def fire_signal():
             try:
                 if ZeissTriggerOUT.read_bool():
                     print("Measurement finished")
-                    time.sleep(30)
-                    fire_results()
+                    # time.sleep(30)
+                    # fire_results()
                     plc.disconnect()
                     plc.destroy()
                     break
@@ -147,3 +155,13 @@ def switch():
             plc.destroy()
             break
 
+
+def read_real(db_number, start_offset):
+    while True:
+        reading = plc.db_read(db_number, start_offset, 4)
+        real = snap7.util.get_real(reading, 0)
+        print(real)
+
+
+
+read_real(1, 0)
