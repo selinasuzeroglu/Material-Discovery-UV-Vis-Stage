@@ -9,15 +9,15 @@ sample_distance = 42
 nikon_distance = 457
 
 
-# homing_MTP()
+homing_MTP()
 positioning_MTP(vertical, horizontal)
 sensor()
 fire_signal()
-# positioning_MTP(vertical, horizontal + sample_distance)
-# sensor()
-# fire_signal()
-# positioning_MTP(vertical, nikon_distance)
-# snapshot()
-# positioning_MTP(vertical, nikon_distance + sample_distance)
-# snapshot()
+positioning_MTP(vertical, horizontal + sample_distance)
+sensor()
+fire_signal()
+positioning_MTP(vertical, nikon_distance)
+snapshot()
+positioning_MTP(vertical, nikon_distance + sample_distance)
+snapshot()
 
