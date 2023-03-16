@@ -92,8 +92,7 @@ class MemorySpace:
     def read_real(self):
         reading = plc.db_read(self.db_number, self.start_offset, 4)
         real = snap7.util.get_real(reading, 0)
-        while True:
-            print(real)
+        return real
 
 
 Microswitch = MemorySpace(1, 4, 0)
@@ -215,5 +214,4 @@ def sensor():
                     print("Sample Holder NOT in Position")
             except:
                 continue
-
 
