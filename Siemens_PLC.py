@@ -95,11 +95,11 @@ class MemorySpace:
         return real
 
 
-Microswitch = MemorySpace(1, 4, 0)
-ZeissTriggerIN = MemorySpace(1, 4, 1)
-ZeissTriggerOUT = MemorySpace(1, 4, 2)
-Sensor = MemorySpace(1, 0, 0) # random bit _offset, since it is not going to be used in read_real()
-
+Microswitch = MemorySpace(1, 8, 0)
+ZeissTriggerIN = MemorySpace(1, 8, 1)
+ZeissTriggerOUT = MemorySpace(1, 8, 2)
+Sensor1 = MemorySpace(1, 0, 0) # random bit _offset, since it is not going to be used in read_real()
+Sensor2 = MemorySpace(1, 4, 0)
 
 def microswitch():
     IP = '192.168.0.1'
@@ -185,7 +185,7 @@ def switch():
             break
 
 
-def sensor():
+def sensor1():
     IP = '192.168.0.1'
     RACK = 0
     SLOT = 1
@@ -201,7 +201,7 @@ def sensor():
                 continue
         else:
             try:
-                if Sensor.read_real() > 0.025:
+                if Sensor1.read_real() > 0.025:
                     ZeissTriggerIN.write_bool(1)
                     print("Sample Holder in Position")
                     time.sleep(2)
