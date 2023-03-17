@@ -131,6 +131,19 @@ def sensor1():
 
 def sensor2():
     while True:
+        if plc.get_connected():
+            try:
+                if Sensor2.read_real() > 0.025:
+                    ZeissTriggerIN.write_bool(1)
+                    print("Sample Holder in Position")
+                    time.sleep(2)
+                    ZeissTriggerIN.write_bool(0)
+                    break
+                else:
+                    ZeissTriggerIN.write_bool(0)
+                    print("Sample Holder NOT in Position")
+            except:
+                continue
         if not plc.get_connected():
             try:
                 plc.connect(IP, RACK, SLOT)
@@ -138,20 +151,4 @@ def sensor2():
                 time.sleep(0.2)
             except:
                 continue
-        else:
-            try:
-                if Sensor2.read_real() > 0.025:
-                    ZeissTriggerIN.write_bool(1)
-                    print("Sample Holder in Position")
-                    time.sleep(2)
-                    ZeissTriggerIN.write_bool(0)
-                    plc.disconnect()
-                    plc.destroy()
-                    break
-                else:
-                    ZeissTriggerIN.write_bool(0)
-                    print("Sample Holder NOT in Position")
-            except:
-                continue
-
 

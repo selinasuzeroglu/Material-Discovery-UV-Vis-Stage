@@ -1,6 +1,7 @@
 from Positioning import positioning_MTP, homing_MTP
 from Siemens_PLC import fire_signal, sensor1, switch, plc, IP, RACK, SLOT
 from Snapshot import snapshot
+import snap7
 
 
 horizontal = 95
@@ -10,6 +11,7 @@ nikon_distance = 457
 
 
 for i in range(200):
+    plc = snap7.client.Client()
     plc.connect(IP, RACK, SLOT)
     homing_MTP()
     positioning_MTP(vertical, horizontal)
@@ -24,4 +26,5 @@ for i in range(200):
     positioning_MTP(vertical, nikon_distance + sample_distance)
     snapshot()
     plc.disconnect()
+    plc.destroy()
 
