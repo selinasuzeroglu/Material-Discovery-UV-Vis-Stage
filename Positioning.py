@@ -1,7 +1,5 @@
 from zaber_motion import Units, Library
 from zaber_motion.ascii import Connection
-from zaber_motion.ascii import AlertEvent
-import time
 
 
 def positioning_MTP(axis1_position, axis2_position):

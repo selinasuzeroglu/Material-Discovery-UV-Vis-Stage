@@ -9,12 +9,6 @@ SLOT = 1
 plc = snap7.client.Client()
 plc.connect(IP, RACK, SLOT)
 
-def connect_plc():
-    IP = '192.168.0.1'
-    RACK = 0
-    SLOT = 1
-    plc = snap7.client.Client()
-    plc.connect(IP, RACK, SLOT)
 # state = plc.get_cpu_state()
 # print(f'State: {state}')
 
@@ -83,20 +77,17 @@ class MemorySpace:
         self.bit_offset = bit_offset
 
     def read_bool(self):
-        plc = snap7.client.Client()
         reading = plc.db_read(self.db_number, self.start_offset, 1)  # bool_size = 1 byte
         bool = snap7.util.get_bool(reading, 0, self.bit_offset)  # byte_index = 0 starting byte reading from beginning
         return bool
 
     def write_bool(self, value):
-        plc = snap7.client.Client()
         reading = plc.db_read(self.db_number, self.start_offset, 1)
         snap7.util.set_bool(reading, 0, self.bit_offset, value)  # byte_index = 0, value = 1(=ON)/0(=OFF) for OUTPUT
         plc.db_write(self.db_number, self.start_offset, reading)
         return None
 
     def read_real(self):
-        plc = snap7.client.Client()
         reading = plc.db_read(self.db_number, self.start_offset, 4)  # bool_size = 4 byte
         real = snap7.util.get_real(reading, 0)  # byte_index = 0 starting byte reading from beginning
         return real
@@ -260,3 +251,5 @@ def sensor2():
             except:
                 continue
 
+
+microswitch()

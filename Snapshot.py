@@ -4,7 +4,8 @@ from Camera import Camera
 # Replace the below path with the absolute or relative path to your CameraControlCmd executable.
 
 # User Input for Image Name
-sample_list = [item for item in input("Enter the list items : ").split()]
+# sample_list = [item for item in input("Enter the list items : ").split()]
+sample_list = range(200)
 image_index = 0
 
 
@@ -36,3 +37,5 @@ def snapshot():
         image_index += 1
 
     return camera()
+
+
