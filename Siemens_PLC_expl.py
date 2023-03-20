@@ -1,7 +1,7 @@
 import snap7
 import time
 import struct
-from SQL_Plot_Results import fire_results
+from SQL_plot_results import fire_results
 
 IP = '192.168.0.1'
 RACK = 0
