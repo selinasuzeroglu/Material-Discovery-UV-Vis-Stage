@@ -112,7 +112,7 @@ def microswitch():  # mechanical switch to trigger InProcess measurements
                     print("Sample Holder in Position")
                     time.sleep(2)
                     ZeissTriggerIN.write_bool(0)  # write Output signal to OFF(=0), so relay will be turned OFF and
-                    # trigger for measurement-start stops.
+                    # trigger for initiating measurement stops.
                     break
                 else:
                     ZeissTriggerIN.write_bool(0)  # if mechanical switch is not triggered, relay stays turned OFF.
@@ -169,18 +169,23 @@ def switch():  # not necessary anymore after 2nd sensor is wired up and able to 
                 continue
 
 
-def sensor1():  # switch sensor to trigger InProcess measurements
+def sensor1():  # analog switch sensor to trigger InProcess measurements
     while True:
         if plc.get_connected():
             try:
-                if Sensor1.read_real() > 0.025:
-                    ZeissTriggerIN.write_bool(1)
+                if Sensor1.read_real() > 0.025:  # if analog switch is triggered, signal will be sent to PLC analog IN.
+                    # The INPUT signal will be read as datatype real with values below 0.025V which resemble OFF state
+                    # (object out of sensor laser beam) and values above 0.025V which resemble ON state (object
+                    # interrupting sensor laser beam)
+                    ZeissTriggerIN.write_bool(1)  # write PLC digital OUT signal to ON(=1), so relay will be turned ON.
+                    # Signal will be sent to InProcess which is defined as DigitalIn Trigger and initiates measurement.
                     print("Sample Holder in Position")
                     time.sleep(2)
-                    ZeissTriggerIN.write_bool(0)
+                    ZeissTriggerIN.write_bool(0)  # write Output signal to OFF(=0), so relay will be turned OFF and
+                    # trigger for initiating measurement stops.
                     break
                 else:
-                    ZeissTriggerIN.write_bool(0)
+                    ZeissTriggerIN.write_bool(0)  # if analog switch is not triggered, relay stays turned OFF.
                     print("Sample Holder NOT in Position")
             except:
                 continue
@@ -193,7 +198,8 @@ def sensor1():  # switch sensor to trigger InProcess measurements
                 continue
 
 
-def sensor2():
+def sensor2():  # same principal as sensor1 but for 2nd position check. Here we use Sensor2 which is an object in the
+    # PLC database which reads analog values from the 2nd analog INPUT pin of the PLC.
     while True:
         if plc.get_connected():
             try:
