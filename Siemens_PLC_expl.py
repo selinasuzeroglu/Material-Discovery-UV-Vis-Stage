@@ -101,20 +101,8 @@ Sensor2 = MemorySpace(1, 4, 0)  # 2nd sensor limit switch for sample position ch
 
 
 def microswitch():
-    IP = '192.168.0.1'
-    RACK = 0
-    SLOT = 1
-    plc = snap7.client.Client()
-    plc.connect(IP, RACK, SLOT)
     while True:
-        if not plc.get_connected():
-            try:
-                print('not connected')
-                plc.connect(IP, RACK, SLOT)
-                time.sleep(0.2)
-            except:
-                continue
-        else:
+        if plc.get_connected():
             try:
                 if Microswitch.read_bool():  # if mechanical switch is triggered, signal will be sent to PLC digital IN.
                     # for Input Signal ON(=1) → Microswitch.read_bool() = TRUE
@@ -125,54 +113,36 @@ def microswitch():
                     time.sleep(2)
                     ZeissTriggerIN.write_bool(0)  # write Output signal to OFF(=0), so relay will be turned OFF and
                     # trigger for measurement start stops.
-                    plc.disconnect()  # disconnecting from PLC
-                    plc.destroy()  # deleting PLC memory
                     break
                 else:
-                    ZeissTriggerIN.write_bool(0)  # write Output signal to OFF, b.c. mechanical switch isn't triggered
+                    ZeissTriggerIN.write_bool(0)
                     print("Sample Holder NOT in Position")
+            except:
+                continue
+        if not plc.get_connected():
+            try:
+                print('not connected')
+                plc.connect(IP, RACK, SLOT)
+                time.sleep(0.2)
             except:
                 continue
 
 
 def fire_signal():
-    IP = '192.168.0.1'
-    RACK = 0
-    SLOT = 1
-    plc = snap7.client.Client()
-    plc.connect(IP, RACK, SLOT)
     while True:
-        if not plc.get_connected():
-            try:
-                plc.connect(IP, RACK, SLOT)
-                print('not connected')
-                time.sleep(0.2)
-            except:
-                continue
-        else:
+        if plc.get_connected():
             try:
                 if ZeissTriggerOUT.read_bool():  # if InProcess measurements are finished, InProcess sends DigitalOut
                     # Trigger (previously user defined in Setup) to relay. Relay turns ON and sends signal to PLC
                     # digital IN.
                     print("Measurement finished")
-                    time.sleep(30)
+                    time.sleep(30)  # time can be adjusted to seconds needed for data to arrive at SQL
                     fire_results()  # get measurement results from SQL
-                    plc.disconnect()  # disconnecting from PLC
-                    plc.destroy()  # deleting PLC memory
                     break
                 else:
                     print("Waiting for measurement to finish")
             except:
                 continue
-
-
-def switch():
-    IP = '192.168.0.1'
-    RACK = 0
-    SLOT = 1
-    plc = snap7.client.Client()
-    plc.connect(IP, RACK, SLOT)
-    while True:
         if not plc.get_connected():
             try:
                 plc.connect(IP, RACK, SLOT)
@@ -180,23 +150,16 @@ def switch():
                 time.sleep(0.2)
             except:
                 continue
-        else:
+
+
+def switch():
+    while True:
+        if plc.get_connected():
             ZeissTriggerIN.write_bool(1)
             print("Sample Holder in Position")
             time.sleep(2)
             ZeissTriggerIN.write_bool(0)
-            plc.disconnect()
-            plc.destroy()
             break
-
-
-def sensor1():
-    IP = '192.168.0.1'
-    RACK = 0
-    SLOT = 1
-    plc = snap7.client.Client()
-    plc.connect(IP, RACK, SLOT)
-    while True:
         if not plc.get_connected():
             try:
                 plc.connect(IP, RACK, SLOT)
@@ -204,30 +167,23 @@ def sensor1():
                 time.sleep(0.2)
             except:
                 continue
-        else:
+
+
+def sensor1():
+    while True:
+        if plc.get_connected():
             try:
                 if Sensor1.read_real() > 0.025:
                     ZeissTriggerIN.write_bool(1)
                     print("Sample Holder in Position")
                     time.sleep(2)
                     ZeissTriggerIN.write_bool(0)
-                    plc.disconnect()
-                    plc.destroy()
                     break
                 else:
                     ZeissTriggerIN.write_bool(0)
                     print("Sample Holder NOT in Position")
             except:
                 continue
-
-
-def sensor2():
-    IP = '192.168.0.1'
-    RACK = 0
-    SLOT = 1
-    plc = snap7.client.Client()
-    plc.connect(IP, RACK, SLOT)
-    while True:
         if not plc.get_connected():
             try:
                 plc.connect(IP, RACK, SLOT)
@@ -235,21 +191,27 @@ def sensor2():
                 time.sleep(0.2)
             except:
                 continue
-        else:
+
+
+def sensor2():
+    while True:
+        if plc.get_connected():
             try:
                 if Sensor2.read_real() > 0.025:
                     ZeissTriggerIN.write_bool(1)
                     print("Sample Holder in Position")
                     time.sleep(2)
                     ZeissTriggerIN.write_bool(0)
-                    plc.disconnect()
-                    plc.destroy()
                     break
                 else:
                     ZeissTriggerIN.write_bool(0)
                     print("Sample Holder NOT in Position")
             except:
                 continue
-
-
-microswitch()
+        if not plc.get_connected():
+            try:
+                plc.connect(IP, RACK, SLOT)
+                print('not connected')
+                time.sleep(0.2)
+            except:
+                continue

@@ -10,7 +10,7 @@ sample_distance = 42
 nikon_distance = 457
 
 
-for i in range(200):
+for i in range(10000):
     plc = snap7.client.Client()
     plc.connect(IP, RACK, SLOT)
     homing_MTP()

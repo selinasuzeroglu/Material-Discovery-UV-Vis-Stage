@@ -5,7 +5,7 @@ from Camera import Camera
 
 # User Input for Image Name
 # sample_list = [item for item in input("Enter the list items : ").split()]
-sample_list = range(200)
+sample_list = range(10000)
 image_index = 0
 
 

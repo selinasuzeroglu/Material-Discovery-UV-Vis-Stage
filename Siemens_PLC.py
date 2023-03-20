@@ -72,7 +72,7 @@ def fire_signal():
                 if ZeissTriggerOUT.read_bool():
                     print("Measurement finished")
                     #time.sleep(30)
-                    time.sleep(7)
+                    time.sleep(15)
                     fire_results()
                     break
                 else:

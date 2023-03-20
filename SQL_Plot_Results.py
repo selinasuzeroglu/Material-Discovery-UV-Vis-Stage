@@ -56,7 +56,7 @@ def fire_results():
 
         global image_index
         collection_name = sample_list[image_index]
-        plt.savefig(f'{collection_name}')
+        plt.savefig(f'C:\\Users\\ssuz0008\\OneDrive - Monash University\\Plots\\{collection_name}')
         plt.show(block=False)
 
         image_index += 1
