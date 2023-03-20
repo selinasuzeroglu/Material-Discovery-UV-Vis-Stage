@@ -1,5 +1,5 @@
 from Positioning import positioning_MTP, homing_MTP
-from Siemens_PLC import fire_signal, sensor1, switch, plc, IP, RACK, SLOT
+from Siemens_PLC import fire_signal, sensor1, sensor2, switch, IP, RACK, SLOT
 from Snapshot import snapshot
 import snap7
 
@@ -18,7 +18,7 @@ for i in range(10000):
     sensor1()
     fire_signal()
     positioning_MTP(vertical, horizontal + sample_distance)
-    # sensor1()
+    # sensor2() change switch to sensor2 as soon as 2nd sensor is wired up
     switch()
     fire_signal()
     positioning_MTP(vertical, nikon_distance)

@@ -100,7 +100,7 @@ Sensor1 = MemorySpace(1, 0, 0)  # 1st sensor limit switch for sample position ch
 Sensor2 = MemorySpace(1, 4, 0)  # 2nd sensor limit switch for sample position check
 
 
-def microswitch():
+def microswitch():  # mechanical switch to trigger InProcess measurements
     while True:
         if plc.get_connected():
             try:
@@ -112,10 +112,10 @@ def microswitch():
                     print("Sample Holder in Position")
                     time.sleep(2)
                     ZeissTriggerIN.write_bool(0)  # write Output signal to OFF(=0), so relay will be turned OFF and
-                    # trigger for measurement start stops.
+                    # trigger for measurement-start stops.
                     break
                 else:
-                    ZeissTriggerIN.write_bool(0)
+                    ZeissTriggerIN.write_bool(0)  # if mechanical switch is not triggered, relay stays turned OFF.
                     print("Sample Holder NOT in Position")
             except:
                 continue
@@ -152,7 +152,7 @@ def fire_signal():
                 continue
 
 
-def switch():
+def switch():  # not necessary anymore after 2nd sensor is wired up and able to replace switch for triggering InProcess.
     while True:
         if plc.get_connected():
             ZeissTriggerIN.write_bool(1)
@@ -169,7 +169,7 @@ def switch():
                 continue
 
 
-def sensor1():
+def sensor1():  # switch sensor to trigger InProcess measurements
     while True:
         if plc.get_connected():
             try:
