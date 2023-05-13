@@ -14,10 +14,4 @@ This repository contains code for automating the movement of the Zaber stage, wh
 8. Triggering the Nikon camera automatically using a trigger mechanism.
 9. Saving and analyzing the high-resolution images using PyTorch (https://github.com/selinasuzeroglu/PyTorch-Sample-Recognition).
 
-## License
 
-This project is licensed under the [MIT License](LICENSE).
-
-## Contact
-
-For any inquiries or issues regarding this project, please contact the project owner, [Selina Suzeroglu](https://github.com/selinasuzeroglu).
